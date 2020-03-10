@@ -54,6 +54,15 @@ var stringifyJSON = function(obj) {
   	return obj + '';
   }
 
+  if (typeof obj === 'function') {
+  	return null;
+  }
+
+  if (typeof obj === 'undefined') {
+  	return null;
+  }
+  // if (typeof obj === '')
+
   // Recursion cases: arrays or objects
 
   if (Array.isArray(obj)) {
