@@ -16,11 +16,24 @@
   // 1. Check if input is an object or array
   // 2 a. If input is object, input somehow '{' so we can add to it recursively. Maybe we set a starting function to equal '{'
   // 2 b. If input is array, input somehow '[' so we can add to it recurisvely
-  // 3. If it's a primitive value then use .toString ??? can we do that
-  // 4.  Add the value to '{' and then delete somehow?
+  // 3. If it's a primitive value, then return the string version of it by adding '' to them
+  
+
+// Failed Idea for array:
+  	// var result = [];
+   //  console.log(obj);
+  	// if (obj.length === 0) {
+  	//   result.push(']');
+  	//   result.unshift('[')
+  	//   return result.join('');
+  	// } else {
+   //    result.push(obj[0] + '');
+   //    return result.concat(stringifyJSON(obj.slice(1))); 
+  	// }
 
 
-// What would be the base here? if the typeof is string?
+// Base cases are the most primitive values we can get
+// Recursion cases are objects and arrays where we will need to recursively return the stringified versions of every primitive value
 
 var stringifyJSON = function(obj) {
   // your code goes here
@@ -40,34 +53,39 @@ var stringifyJSON = function(obj) {
   if (typeof obj === 'boolean') {
   	return obj + '';
   }
+
   // Recursion cases: arrays or objects
 
   if (Array.isArray(obj)) {
   	var result = []; // create result var to join inputs
 
-  	if (obj.length === 0) {
+  	if (obj.length === 0) { // Base case for array
   	  return '[]';
   	}
 
-  	var result = obj.map(function (item) {
-  	  return stringifyJSON(item);
+  	var result = obj.map(function (item) {  // Use map to store an array of the result of using stringifyJSON on each element
+  	  return stringifyJSON(item); // Note to self: maybe change parameter name to itemToString for better readability
   	});
 
-    return '[' + result.join(',') + ']';
+    return '[' + result.join(',') + ']';  // return the stringified result array by adding stringified brackets and joining the result array with comma
+  };
 
-  	// var result = [];
-   //  console.log(obj);
-  	// if (obj.length === 0) {
-  	//   result.push(']');
-  	//   result.unshift('[')
-  	//   return result.join('');
-  	// } else {
-   //    result.push(obj[0] + '');
-   //    return result.concat(stringifyJSON(obj.slice(1))); 
-  	// }
-  }
+  // Check if object
 
-  return result;
+  if (typeof obj === 'object') {
+  	// do stuff
+    
+  	// Need to use stringifyJSON on each key and its value to return the string version
+  	// Look at all the keys... maybe use Object.keys
+  	// Use map to map together an array of different parts of the string we can then join
+
+  	var result = Object.keys(obj).map(function (item) {
+  	  return stringifyJSON(item) + ':' + stringifyJSON(obj[item]); // returns 'key:value'
+  	})
+
+  	return '{' + result.join(',') + '}'; // returns '{"key":"value"}'
+  
+  };
 
 };
 
