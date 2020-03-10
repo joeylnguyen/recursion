@@ -89,7 +89,9 @@ var stringifyJSON = function(obj) {
   	// Use map to map together an array of different parts of the string we can then join
 
   	var result = Object.keys(obj).map(function (item) {
-  	  return stringifyJSON(item) + ':' + stringifyJSON(obj[item]); // returns 'key:value'
+  	  if (stringifyJSON(obj[item]) !== null) {
+  	    return stringifyJSON(item) + ':' + stringifyJSON(obj[item]); // returns 'key:value'
+  	  }
   	})
 
   	return '{' + result.join(',') + '}'; // returns '{"key":"value"}'
