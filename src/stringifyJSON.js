@@ -86,17 +86,19 @@ var stringifyJSON = function(obj) {
     
   	// Need to use stringifyJSON on each key and its value to return the string version
   	// Look at all the keys... maybe use Object.keys
-  	// Use map to map together an array of different parts of the string we can then join
+  	// Use map to map together an array of different parts of the string we can then join.. this ended up not working because i kept getting an array with undefined at unstringifiable objects
+  	// Needed to create an array that would only get pushed values that weren't returning null, so when I do the final .join, it won't give me {,}
 
-  	var result = Object.keys(obj).map(function (item) {
-  	  if (stringifyJSON(obj[item]) !== null) {
-  	    return stringifyJSON(item) + ':' + stringifyJSON(obj[item]); // returns 'key:value'
-  	  }
-  	})
-
-  	return '{' + result.join(',') + '}'; // returns '{"key":"value"}'
-  
-  };
-
+  	var stringResultArray = [];
+  	Object.keys(obj).forEach(function (item) {
+  	  if (stringifyJSON(obj[item]) !== null) { // skips functions and undefined
+  	    // console.log(stringifyJSON(item) + ':' + stringifyJSON(obj[item]))
+  	    stringResultArray.push(stringifyJSON(item) + ':' + stringifyJSON(obj[item])); // returns 'key:value'
+  	    console.log(stringResultArray)
+  	  };  
+  	});
+    return '{' + stringResultArray.join(',') + '}'; // returns '{"key":"value"}'
+    // console.log(result);
+    // // console.log('{' + result.join(',') + '}')
+  }
 };
-
