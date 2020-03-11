@@ -23,30 +23,30 @@ var getElementsByClassName = function(className
 // return nodeName
 
 // if ()
-
-  var nodes = document.childNodes
   var result = [];
+  var nodes = document.body
 
   // If there are childNodes
   // Look at each childNode and see if className is target
-  nodes.forEach(function(node) {
-  	console.log(node.childNodes.length)
-  	console.log(node)
-  	console.log(node.className)
+  nodes.childNodes.forEach(function(node) {
+    var elements = []
+    if (node.nodeType == Node.ELEMENT_NODE) {
+      elements.push(node);
+      elements.forEach(function(element) {
+      	if (element.classList.length > 0) {
+          result.push(element)
+      	};
+      });
+      	console.log(node.classList)
+      	console.log(node.nodeName)
+  
+    };
 
-  	if (node.className = className) {
-  	  result.push(node.nodeName);
-  	}
-  	if (node.childNodes.length > 0) {
-
-  	}
-  	if (node.classList) {
-  	  console.log('hi')
-  	}
-
-  });
-
-
+  // var classList = nodes.classList;
+  // console.log(classList.length)
+  // console.log(nodes.childNodes);
+  // console.log(classList);
+  
   // var classList = body.classList;
 
   // var result = classList.map(function (element) {
@@ -57,6 +57,9 @@ var getElementsByClassName = function(className
   //   });
   // });
   	
-console.log("this className: ", document.childNodes)
+// console.log("this className: ", 'hi')
 console.log("this result: ", result)
+return result;
+
+  });
 };
