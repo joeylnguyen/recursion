@@ -6,60 +6,40 @@
 
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-) {
-  // your code here
+
+ // your code here
   // Does stuff to get all elements that have the same class name
-  // Goes into 
+  // returns an array of elements
 
-  // Base Case
-  // If there are no children of current element, return element
-  // if (className.children.length === 0) {
-  //   return 
-  // }
 
-// Look to see if childNodes exist
-// if childNodes[className] === className
-// return nodeName
+// Can't move through node branches on its own
+// Need to use helper function
+  // Goes over the childNodes arrays
+  // Pushes current node if it has className
+  
+  // Calls itself if it has childNodes
+// Main function calls helper to pull desired elements
+// returns result array
 
-// if ()
+
+var getElementsByClassName = function(className) {
   var result = [];
-  var nodes = document.body
-
-  // If there are childNodes
-  // Look at each childNode and see if className is target
-  nodes.childNodes.forEach(function(node) {
-    var elements = []
-    if (node.nodeType == Node.ELEMENT_NODE) {
-      elements.push(node);
-      elements.forEach(function(element) {
-      	if (element.classList.length > 0) {
-          result.push(element)
-      	};
-      });
-      	console.log(node.classList)
-      	console.log(node.nodeName)
   
-    };
+  var goThroughNodes = function(node) {
+    for(var i = 0; i < node.childNodes.length; i++) {
+      
+      if (node.childNodes[i].classList && node.childNodes[i].classList.value === className) {
+        console.log('pushing: ' )
+        result.push(node.childNodes[i]); // Something off with my base case, perhaps? 
+      }
 
-  // var classList = nodes.classList;
-  // console.log(classList.length)
-  // console.log(nodes.childNodes);
-  // console.log(classList);
-  
-  // var classList = body.classList;
+      if (node.childNodes[i].childNodes) {
+        goThroughNodes(node.childNodes[i]);
+      }
+    }
+  }
 
-  // var result = classList.map(function (element) {
-  // 	element.classList.forEach(function (item) {
-  // 	  if (item) {
-  // 		return 'hi'
-  // 	  };
-  //   });
-  // });
-  	
-// console.log("this className: ", 'hi')
-console.log("this result: ", result)
-return result;
-
-  });
+  goThroughNodes(document);
+  console.log(result);
+  return result;
 };
