@@ -94,7 +94,7 @@ var stringifyJSON = function(obj) {
   	  if (stringifyJSON(obj[item]) !== null) { // skips functions and undefined
   	    // console.log(stringifyJSON(item) + ':' + stringifyJSON(obj[item]))
   	    stringResultArray.push(stringifyJSON(item) + ':' + stringifyJSON(obj[item])); // returns 'key:value'
-  	    console.log(stringResultArray)
+  	    // console.log(stringResultArray)
   	  };  
   	});
     return '{' + stringResultArray.join(',') + '}'; // returns '{"key":"value"}'
