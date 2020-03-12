@@ -27,19 +27,18 @@ var getElementsByClassName = function(className) {
   
   var goThroughNodes = function(node) {
     for(var i = 0; i < node.childNodes.length; i++) {
-      
-      if (node.childNodes[i].classList && node.childNodes[i].classList.value === className) {
-        console.log('pushing: ' )
-        result.push(node.childNodes[i]); // Something off with my base case, perhaps? 
-      }
 
-      if (node.childNodes[i].childNodes) {
+//.contains(className) checks if className exists in the classList
+if (node.childNodes[i].classList && node.childNodes[i].classList.contains(className)) {
+        result.push(node.childNodes[i]); 
+      }      
+
+      if (node.childNodes[i].childNodes.length > 0) {
         goThroughNodes(node.childNodes[i]);
       }
     }
   }
 
   goThroughNodes(document);
-  console.log(result);
   return result;
 };
